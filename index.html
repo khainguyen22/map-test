@@ -166,30 +166,30 @@
         $('#main-map').attr("src", "https://www.npt.com.vn/Theme/npt/img/map/bg_map.jpg");
         $('#toolTip1').css("display", "none");
     }
-    function active(data, src) {
-        $('#main-map').attr("src", src); 
-        showTemperatures(data)
+    function active(data, src, title) {
+        $('#main-map').attr("src", src);
+        showTemperatures(data, title);
         $('#toolTip1').css("display", "block");
         $('.img-tooltip').css("display", "block");
     }
     $("#img-tooltip1").hover(function () {
         clear();
-        active(result1, "https://www.npt.com.vn/Theme/npt/img/map/mb.png");
+        active(result1, "https://www.npt.com.vn/Theme/npt/img/map/mb.png", 'PTC1');
     }, function () {
         clear();
     });
     $("#img-tooltip2").hover(function () {
-        active(result2, 'https://www.npt.com.vn/Theme/npt/img/map/mt.png');
+        active(result2, 'https://www.npt.com.vn/Theme/npt/img/map/mt.png', 'PTC2');
     }, function () {
         clear();
     });
     $("#img-tooltip3").hover(function () {
-        active(result3, 'https://www.npt.com.vn/Theme/npt/img/map/mtb.png');
+        active(result3, 'https://www.npt.com.vn/Theme/npt/img/map/mtb.png', 'PTC3');
     }, function () {
         clear();
     });
     $("#img-tooltip4").hover(function () {
-        active(result4, 'https://www.npt.com.vn/Theme/npt/img/map/mn.png');
+        active(result4, 'https://www.npt.com.vn/Theme/npt/img/map/mn.png', 'PTC4');
     }, function () {
         clear();
     });
@@ -201,9 +201,10 @@
         tooltipSpan.style.top = (y + 0) + 'px';
         tooltipSpan.style.left = (x + 20) + 'px';
     };
-    function showTemperatures(data_list) {
+    function showTemperatures(data_list, title) {
+        console.log(title);
         document.getElementById('toolTip1').innerHTML =
-            '<li>' + data_list.join('</li><li>') + '</li>'
+            '<ul> <h3>' + title + '</h3><li>' + data_list.join('</li><li>') + '</li></ul>'
     }
 
 
