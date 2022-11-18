@@ -132,10 +132,10 @@
             <div class="col-lg-6 chartjs">
                 <div class="wrapper">
                     <canvas id="myChart4"></canvas>
+                    <div id="app"></div>
                 </div>
             </div>
         </div>
-        <canvas id="myStackedChart" width="400px" height="400px"></canvas>
     </div>
 
 </body>
@@ -150,47 +150,46 @@
     const result3 = [];
     const result4 = [];
     for (let index = 0; index < labels.length; ++index) {
-        result1[labels[index]] = PTC1[index];
+        result1[index] = [labels[index], PTC1[index]];
     }
     for (let index = 0; index < labels.length; ++index) {
-        result2[labels[index]] = PTC2[index];
+        result2[index] = [labels[index], PTC2[index]];
     }
     for (let index = 0; index < labels.length; ++index) {
-        result3[labels[index]] = PTC3[index];
+        result3[index] = [labels[index], PTC3[index]];
     }
     for (let index = 0; index < labels.length; ++index) {
-        result4[labels[index]] = PTC4[index];
+        result4[index] = [labels[index], PTC4[index]];
     }
-    console.log(result4);
+
     function clear() {
         $('#main-map').attr("src", "https://www.npt.com.vn/Theme/npt/img/map/bg_map.jpg");
         $('#toolTip1').css("display", "none");
     }
     function active(data, src) {
-        $('#main-map').attr("src", src);
-        $('#toolTip1').text(data);
+        $('#main-map').attr("src", src); 
+        showTemperatures(data)
         $('#toolTip1').css("display", "block");
         $('.img-tooltip').css("display", "block");
-
     }
     $("#img-tooltip1").hover(function () {
         clear();
-        active('result1', "https://www.npt.com.vn/Theme/npt/img/map/mb.png");
+        active(result1, "https://www.npt.com.vn/Theme/npt/img/map/mb.png");
     }, function () {
         clear();
     });
     $("#img-tooltip2").hover(function () {
-        active('result2', 'https://www.npt.com.vn/Theme/npt/img/map/mt.png');
+        active(result2, 'https://www.npt.com.vn/Theme/npt/img/map/mt.png');
     }, function () {
         clear();
     });
     $("#img-tooltip3").hover(function () {
-        active('result3', 'https://www.npt.com.vn/Theme/npt/img/map/mtb.png');
+        active(result3, 'https://www.npt.com.vn/Theme/npt/img/map/mtb.png');
     }, function () {
         clear();
     });
     $("#img-tooltip4").hover(function () {
-        active('result4', 'https://www.npt.com.vn/Theme/npt/img/map/mn.png');
+        active(result4, 'https://www.npt.com.vn/Theme/npt/img/map/mn.png');
     }, function () {
         clear();
     });
@@ -202,6 +201,12 @@
         tooltipSpan.style.top = (y + 0) + 'px';
         tooltipSpan.style.left = (x + 20) + 'px';
     };
+    function showTemperatures(data_list) {
+        document.getElementById('toolTip1').innerHTML =
+            '<li>' + data_list.join('</li><li>') + '</li>'
+    }
+
+
 
     //chartjs\
     var ctx = document.getElementById("myChart4").getContext('2d');
@@ -237,11 +242,11 @@
             tooltips: {
                 displayColors: true,
                 mode: 'label',
-                // callbacks: {
-                //     label: function (tooltipItem, data) {
-                //         // return data.datasets[tooltipItem.datasetIndex].label + ": " + numberWithCommas(tooltipItem.yLabel);
-                //     }
-                // }
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        return "  " + data.datasets[tooltipItem.datasetIndex].label + " : " + numberWithCommas(tooltipItem.yLabel);
+                    }
+                }
             },
             scales: {
                 xAxes: [{
@@ -265,13 +270,13 @@
             legend: { position: 'bottom' },
             title: {
                 display: true,
-                text: 'Sản lượng điện truyền tải (Triệu kWh)'
+                text: 'Sản lượng điện truyền tải (Triệu kWh) ',
             },
         }
     });
-    // var numberWithCommas = function (x) {
-    //     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    // };
+    var numberWithCommas = function (x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
 </script>
 
 </html>
