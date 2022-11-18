@@ -7,8 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://raw.githubusercontent.com/davidjbradshaw/imagemap-resizer/master/js/imageMapResizer.min.js"></script>
+    <script
+        src="https://raw.githubusercontent.com/davidjbradshaw/imagemap-resizer/master/js/imageMapResizer.min.js"></script>
 
+    <script src="./access/jquery.min.js"></script>
+    <script src="./access/imageMapResizer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <style>
         body {
@@ -44,8 +47,19 @@
             right: 0;
         }
 
+        .row {
+            display: flex;
+        }
+
+        .col-lg-6 {
+            width: 50%;
+        }
 
         @media(max-width:991px) {
+            .row {
+                flex-direction: column;
+            }
+
             .col-lg-6 {
                 width: 100%;
                 overflow: hidden;
