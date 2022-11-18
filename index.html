@@ -13,6 +13,8 @@
     <script src="./access/jquery.min.js"></script>
     <script src="./access/imageMapResizer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/imagemapster/1.5.4/jquery.imagemapster.min.js">
+    </script>
     <style>
         body {
             background-color: #fff;
@@ -72,6 +74,7 @@
             background-color: rgb(17, 17, 17);
             color: #fff;
             padding: 20px;
+            display: none;
         }
 
         area {
@@ -132,37 +135,11 @@
                 </div>
             </div>
         </div>
+        <canvas id="myStackedChart" width="400px" height="400px"></canvas>
     </div>
 
 </body>
 <script>
-    //     $(function () {
-    //         $('.map').maphilight({
-    //             fillColor: '008800'
-    //         });
-
-    //     }); 
-    //     var basic_opts = {
-    //     mapKey: 'shape'
-    // };
-
-    // var initial_opts = $.extend({},basic_opts, 
-    //     { 
-    //         staticState: true,
-    //         fill: false,
-    //         stroke: true,
-    //         strokeWidth: 2,
-    //         strokeColor: 'ff0000'
-    //     });
-
-    // $('img').mapster(initial_opts)
-    //     .mapster('set',true,'CA', {
-    //         fill: true,
-    //         fillColor: '00ff00'
-    //     })
-    //     .mapster('snapshot')
-    //     .mapster('rebind',basic_opts);
-
     const labels = ["T10 2022", "T11 2022", "T12 2022", "T13 2022", "T14 2022", "T15 2022", "T16 2022", "T17 2022", "T18 2022"];
     let PTC1 = [112, 59, 45, 56, 58, 52, 59, 87, 45];
     let PTC2 = [12, 19, 25, 26, 18, 12, 29, 15, 23];
@@ -193,6 +170,8 @@
         $('#main-map').attr("src", src);
         $('#toolTip1').text(data);
         $('#toolTip1').css("display", "block");
+        $('.img-tooltip').css("display", "block");
+
     }
     $("#img-tooltip1").hover(function () {
         clear();
@@ -226,7 +205,6 @@
 
     //chartjs\
     var ctx = document.getElementById("myChart4").getContext('2d');
-
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -250,11 +228,20 @@
             }],
         },
         options: {
+            animation: {
+                duration: 10,
+            },
+            legend: {
+                display: true
+            },
             tooltips: {
                 displayColors: true,
-                callbacks: {
-                    mode: 'x',
-                },
+                mode: 'label',
+                // callbacks: {
+                //     label: function (tooltipItem, data) {
+                //         // return data.datasets[tooltipItem.datasetIndex].label + ": " + numberWithCommas(tooltipItem.yLabel);
+                //     }
+                // }
             },
             scales: {
                 xAxes: [{
@@ -262,7 +249,7 @@
                     barThickness: 30,
 
                     gridLines: {
-                        display: false,
+                        display: true,
                     }
                 }],
                 yAxes: [{
@@ -274,11 +261,13 @@
                 }]
             },
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
             legend: { position: 'bottom' },
         }
     });
-
+    // var numberWithCommas = function (x) {
+    //     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // };
 </script>
 
 </html>
