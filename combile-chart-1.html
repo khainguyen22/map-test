@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Getting Started with Chart JS with www.chartjs3.com</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        .chartMenu {
+            width: 100vw;
+            height: 40px;
+            background: #1A1A1A;
+            color: rgba(54, 162, 235, 1);
+        }
+
+        .chartMenu p {
+            padding: 10px;
+            font-size: 20px;
+        }
+
+        .chartCard {
+            width: 100vw;
+            height: calc(100vh - 40px);
+            background: rgba(54, 162, 235, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chartBox {
+            width: 1000px;
+            padding: 20px;
+            border-radius: 20px;
+            background: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chartCard">
+        <div class="chartBox">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"
+        integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        var data1 = [50, 100, 100, 100, 100, 100, 100, 100, 100, 100];
+        var data2 = [50, 10, 20, 30, 40, 50, 60, 70, 80, 90];
+        var dataAll = [data1, data2];
+        data1.forEach(element => {
+            console.log(element);
+        });
+        data2.forEach(element => {
+            console.log(element);
+        });
+        var dataAll_all = [];
+        dataAll.forEach((value, index) => {
+            dataAll_all.push(value[index]);
+        });
+        console.log(dataAll);
+        function totalSum(total, datapoint) {
+            return total + datapoint;
+
+        }
+        let sum = dataAll_all.reduce(totalSum, 0);
+        console.log(sum);
+
+        const data = {
+            labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+            datasets: [{
+                label: 'Data 1',
+                data: data1,
+                backgroundColor: [
+                    'rgba(0, 0, 0, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(0, 0, 0, 1)'
+                ],
+                borderWidth: 1,
+                order: 2,
+                datalabels: {
+                    color: 'rgba(0, 0, 0, 0)',
+                }
+            },
+            {
+                label: 'Data 2',
+                data: data2,
+                backgroundColor: [
+                    'rgba(255, 26, 104, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 26, 104, 1)',
+                ],
+
+                borderWidth: 1,
+                order: 2,
+                datalabels: {
+                    color: 'rgba(0, 0, 0, 0)',
+                }
+            },
+            {
+                label: 'Data line',
+                data: [
+                    { x: 100, y: 110 },
+                    { x: 110, y: 120 },
+                    { x: 120, y: 130 },
+                    { x: 130, y: 140 },
+                    { x: 140, y: 150 },
+                    { x: 150, y: 160 },
+                    { x: 160, y: 170 },
+                    { x: 170, y: 180 },
+                    { x: 180, y: 190 },
+                    { x: 190, y: 200 }
+                ],
+                backgroundColor: [
+                    'rgba(0, 0, 0, 1)',
+                ],
+                borderColor: [
+                    'rgba(0, 0, 0, 1)',
+                ],
+                borderWidth: 1,
+                tension: 0.4,
+                type: 'line',
+                pointRadius: 30,
+                pointHoverRadius: 30,
+                order: 1,
+                pointStyle: 'line',
+                stepped: 'middle',
+            },
+            ]
+        };
+
+        // config 
+        const config = {
+            type: 'bar',
+            data,
+            options: {
+
+                responsive: true,
+                // maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        enabled: false,
+                    },
+
+                    datalabels: {
+                        // anchor: 'end',
+                        align: 'top',
+                        //     formatter: (value, context) => {
+                        //         const datasetArray = [];
+                        //         let dataAll = context.chart.data.datasets;
+                        //         dataAll.forEach((dataset) => {
+                        //             // datasetArray.push(dataset.data[0])
+                        //             if (dataset.data[context.dataIndex] != undefined) {
+                        //                 datasetArray.push(dataset.data[context.dataIndex]);
+                        //                 // console.log(datasetArray);
+                        //             }
+                        //             // console.log(dataset.data[0]);
+                        //         });
+                        //         console.log(dataAll);
+                        //         function totalSum(total, datapoint) {
+                        //             // console.log(total);
+                        //             // console.log(datapoint);
+                        //             return total + datapoint - 10;
+
+                        //         }
+                        //         let sum = datasetArray.reduce(totalSum, 0);
+                        //         data1.forEach((value) => {
+                        //             // return value;
+                        //         });
+                        //     }
+                    },
+                },
+                // interaction: {
+                //     mode: 'index',
+                //     intersect: false
+                // },
+                scales: {
+                    x: {
+                        stacked: true,
+                    },
+                    y: {
+                        beginAtZero: true,
+                        stacked: true,
+
+                    }
+                },
+
+            },
+
+            plugins: [ChartDataLabels],
+        };
+
+        // render init block
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+
+    </script>
+
+</body>
+
+</html>
